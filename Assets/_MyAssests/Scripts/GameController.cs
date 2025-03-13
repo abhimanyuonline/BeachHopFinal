@@ -446,9 +446,9 @@ public class GameController : MonoBehaviour
         Destroy(stairsObj);
         dataManager.GameEndMenu();
         
-        // googleAds.DestroyBannerAd();
-        // googleAds.LoadInterstitialAd();
-        // googleAds.ShowInterstitialAd();
+        googleAds.DestroyBannerAd();
+        googleAds.LoadInterstitialAd();
+        googleAds.ShowInterstitialAd();
     }
 
     public float PillarSize()
