@@ -401,6 +401,7 @@ public class GameController : MonoBehaviour
         if (lastHighScore < dataManager._currentScore && lastHighScore > 0)
         {
             conffetiGO.SetActive(true);
+            soundManger.PlaySfx("HighScore");
             Invoke(nameof(HighScoreAnimation),2.0f);
         }
     }
@@ -498,11 +499,15 @@ public class GameController : MonoBehaviour
 
     public void OnPauseClick()
     {
+        Time.timeScale = 0;
+        soundManger.PauseMusicSfx();
         pausePanel.gameObject.SetActive(true);
         playerIsGameScreen = false;
     }
     public void OnResumeClick()
     {
+        Time.timeScale = 1;
+        soundManger.PlayMusicSfx();
         pausePanel.gameObject.SetActive(false);
         playerIsGameScreen = true;
     }

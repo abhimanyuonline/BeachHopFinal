@@ -5290,6 +5290,7 @@ GameObject:
   - component: {fileID: 1268544227}
   - component: {fileID: 1268544226}
   - component: {fileID: 1268544228}
+  - component: {fileID: 1268544229}
   m_Layer: 5
   m_Name: HighScoreConfetti
   m_TagString: Untagged
@@ -5378,6 +5379,102 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &1268544229
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268544224}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1273036094
 GameObject:
   m_ObjectHideFlags: 0
@@ -9666,9 +9763,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2857713455789951500, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
+      propertyPath: sfxSounds.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857713455789951500, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
       propertyPath: sfxSounds.Array.data[2].clip
       value: 
       objectReference: {fileID: 8300000, guid: 68ce7d4a47fcf42f4a1fcb91539d12bd, type: 3}
+    - target: {fileID: 2857713455789951500, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
+      propertyPath: sfxSounds.Array.data[5].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: feba99a52d3a90e41a1287f099284604, type: 3}
+    - target: {fileID: 2857713455789951500, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
+      propertyPath: sfxSounds.Array.data[5].name
+      value: HighScore
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857713455789951500, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
+      propertyPath: sfxSounds.Array.data[5].source
+      value: 
+      objectReference: {fileID: 1268544229}
+    - target: {fileID: 2857713455789951500, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
+      propertyPath: sfxSounds.Array.data[5].volume
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2857713455789951501, guid: 61dca04c31ffa4e2e82caeee57a80d5b, type: 3}
       propertyPath: m_RootOrder
       value: 11
