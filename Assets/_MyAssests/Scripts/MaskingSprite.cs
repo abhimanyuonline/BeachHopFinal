@@ -35,6 +35,7 @@ public class MaskingSprite : MonoBehaviour
         {
             playerContactPos = new Vector2();
             {
+                Handheld.Vibrate();
                 soundManger.PlayMusic("GameOver",false);
                 playerContactPos.x = obj.transform.position.x;
                 playerContactPos.y = transform.position.y + this.gameObject.transform.localScale.y / 2;

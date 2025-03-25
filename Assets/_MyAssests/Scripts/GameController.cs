@@ -67,10 +67,17 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject gameFinishedPanel;
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject scoreUpdaterText;
+    [SerializeField] GameObject reviveGamePanel;
+    
+    [SerializeField] Slider reviveEndGameSlider;
+    [SerializeField] Button reviveEndGameButton;
+    
     [SerializeField] DataManager dataManager;
+    
     [SerializeField] GameObject[] clouds;
     [SerializeField] SoundManager soundManger;
     [SerializeField] Button[] buttons;
+    
     [SerializeField] private GameObject conffetiGO;
     
     [SerializeField] bool playerIsGameScreen = false;
@@ -187,6 +194,7 @@ public class GameController : MonoBehaviour
         screenTapCanvas.gameObject.SetActive(true);
         gameFinishedPanel.gameObject.SetActive(false);
         scoreUpdaterText.gameObject.SetActive(false);
+        reviveGamePanel.gameObject.SetActive(false);
 
         var index = PlayerPrefs.GetInt("CharIndex");
         selectedPlayer = playerPrefabs[index];
@@ -231,6 +239,17 @@ public class GameController : MonoBehaviour
         pillarsList[2].gameObject.SetActive(false);
     }
 
+    void ReliveGamePlay() {
+        Destroy(stairsObj);
+        reviveGamePanel.gameObject.SetActive(value:false);
+        SetIdleTrue();
+        SetWalkFalse();
+        SetFallFalse();
+        selectedPlayer.transform.SetPositionAndRotation(playerBoyInitialLoc, Quaternion.identity);
+        isIdle = true;
+        startIncreaingStair = true;
+    }
+
     public Vector2 RandomiseNextPillarLocationVec2(Vector2 firstPos, Vector2 secondPos)
     {
         var diff = firstPos.x - secondPos.x;
@@ -262,6 +281,7 @@ public class GameController : MonoBehaviour
 
     public void OnClick_Stairs()
     {
+        
         if (!startIncreaingStair)
             return;
         //stairsStartingPos.x = pillarStartingPosVec2.x;
@@ -401,6 +421,7 @@ public class GameController : MonoBehaviour
         if (lastHighScore < dataManager._currentScore && lastHighScore > 0)
         {
             conffetiGO.SetActive(true);
+            soundManger.PlaySfx("HighScore");
             Invoke(nameof(HighScoreAnimation),2.0f);
         }
     }
@@ -413,7 +434,6 @@ public class GameController : MonoBehaviour
 
     void UnSucssefullyReached()
     {
-        float currentY = selectedPlayer.transform.position.y;
         selectedPlayer.transform.DOMoveY(-7.0f, 2);
         stairsObj.transform.DOLocalRotate(new Vector3(0, 0, -90), 2.0f, RotateMode.LocalAxisAdd).OnComplete(AfterUnSucessfullPlayerReach);
         SetIdleFalse();
@@ -444,12 +464,44 @@ public class GameController : MonoBehaviour
     {
         isIdle = false;
         Destroy(stairsObj);
-        dataManager.GameEndMenu();
-        
-        // googleAds.DestroyBannerAd();
-        // googleAds.LoadInterstitialAd();
-        // googleAds.ShowInterstitialAd();
+        reviveGamePanel.SetActive(true);
+        reviveEndGameSlider.value = 0;
+        reviveEndGameButton.interactable = false;
+        StartCoroutine(StartFillingBar());
     }
+
+    private IEnumerator StartFillingBar() {
+        if (reviveEndGameSlider.value > 0.99f) {
+            StopCoroutine(StartFillingBar());
+            reviveEndGameButton.interactable = true;
+            yield break;
+        }
+
+        reviveEndGameSlider.value += 0.01f;
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(StartFillingBar());
+    }
+    
+
+    public void RestartGameAfterReward() {
+        ReliveGamePlay();
+    }
+
+    public void onClick_StartRewardAd(){
+        googleAds.DestroyAllAds();
+        googleAds.LoadRewardedAd();
+        googleAds.ShowRewardedAd();
+    }
+    public void StartEndGameActivity()
+    {
+        googleAds.DestroyAllAds();
+        googleAds.LoadInterstitialAd();
+        googleAds.ShowInterstitialAd();
+        
+        reviveGamePanel.SetActive(false);
+        dataManager.GameEndMenu();
+    }
+    
 
     public float PillarSize()
     {
@@ -498,11 +550,19 @@ public class GameController : MonoBehaviour
 
     public void OnPauseClick()
     {
+        Time.timeScale = 0;
+        soundManger.PauseMusicSfx();
         pausePanel.gameObject.SetActive(true);
         playerIsGameScreen = false;
+        
+        googleAds.DestroyAllAds();
+        googleAds.LoadInterstitialAd();
+        googleAds.ShowInterstitialAd();
     }
     public void OnResumeClick()
     {
+        Time.timeScale = 1;
+        soundManger.PlayMusicSfx();
         pausePanel.gameObject.SetActive(false);
         playerIsGameScreen = true;
     }

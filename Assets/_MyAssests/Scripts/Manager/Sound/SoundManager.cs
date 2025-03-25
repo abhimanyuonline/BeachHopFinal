@@ -76,4 +76,24 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PauseMusicSfx() {
+        foreach (var item in musicSounds) {
+            item.source.Pause();
+        }
+
+        foreach (var items in sfxSounds) {
+            items.source.Pause();
+        }
+    }
+    public void PlayMusicSfx() {
+        foreach (var item in musicSounds)
+        {
+            item.source.UnPause();
+        }
+
+        foreach (var items in sfxSounds) {
+            items.source.UnPause();
+        }
+    }
+
 }
