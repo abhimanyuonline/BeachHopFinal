@@ -468,6 +468,8 @@ public class GameController : MonoBehaviour
         reviveEndGameSlider.value = 0;
         reviveEndGameButton.interactable = false;
         StartCoroutine(StartFillingBar());
+        googleAds.DestroyAllAds();
+        googleAds.LoadRewardedAd();
     }
 
     private IEnumerator StartFillingBar() {
@@ -488,8 +490,6 @@ public class GameController : MonoBehaviour
     }
 
     public void onClick_StartRewardAd(){
-        googleAds.DestroyAllAds();
-        googleAds.LoadRewardedAd();
         googleAds.ShowRewardedAd();
     }
     public void StartEndGameActivity()
